@@ -346,7 +346,6 @@
         }
         .item-card.text-only { padding: 10px; }
 
-        /* Thumbnail da Mochila (não mais usado para o manto) */
         .item-list li.item-with-image {
             display: flex;
             justify-content: space-between;
@@ -510,8 +509,6 @@
         /* --- SEÇÃO DA IMAGEM --- */
         #character-art { grid-column: 1 / -1; }
         #character-art .section-content { padding: 15px; }
-
-        /* --- MUDANÇA: Arte do Personagem reduzida e centralizada --- */
         #character-art img {
             width: 80%; /* Não mais 100% */
             margin: 0 auto; /* Centraliza a imagem */
@@ -733,7 +730,7 @@
                     <div class="section-content item-grid-container">
                         
                         <div class="item-card">
-                            <img src="Armas Dralok/foice das sombras.png" alt="Foice com Laminas Dupla">
+                            <img src="Armas Dralok/foice.png" alt="Foice com Laminas Dupla">
                             <div class="item-info">
                                 <strong>Foice com Laminas Dupla</strong>
                                 <span class="item-desc">(5d12 cada)</span>
@@ -793,7 +790,7 @@
                         </div>
                         
                         <div class="item-card">
-                             <img src="animais das sombras/cobras.png" alt="Cobras das Sombras">
+                             <img src="https://lh3.googleusercontent.com/gg/AIJ2gl-x4Y9NMvylesXfS9wi74JUp8tzGmCt2JdNvVi7WYlrirOtkR0GhFnMGou3Fiaapl5EWK9FRDQ1XlTfLSaLSZ5258m84tNEXj1py-8LkDIBehR6HH0Nq2IGoBXr-gFVQLoCrBa_dRMUV2vNxuhs5dGIJXlo8mBooKA4ioCpwPWm7tFBXXJWLt32vcETbb6p1JhiH2X08lM5RhQCYDqT8V6UIJoHEPwzbM_3-AzRMKkXHPfCihVFqD9VS1ecGVvO8nmMSKi3j6WnTXmCj2tLJHBuojxgo4LBavB05sWIC2yFGjbdB5GDQxZFEdqKENNm9pY8ZK5FJx4OUoYLbPpj2E62=s1024-rj" alt="Cobras das Sombras">
                             <div class="item-info">
                                 <strong>Cobras</strong>
                                 <span class="item-desc">(5x venenosas)</span>
@@ -813,14 +810,15 @@
 
                 <section class="sheet-section" id="equipamentos">
                     <h2>Equipamentos</h2>
-                    <div class="section-content item-grid-container grid-3"> <div class="item-card">
-                            <img src="equipamentos/manto com sombras.png" alt="Manto Preto">
+                    <div class="section-content item-grid-container grid-3"> 
+                        <div class="item-card">
+                            <img src="equipamentos/manto.png" alt="Manto Preto">
                             <div class="item-info">
                                 <strong>Manto Preto</strong>
                                 <span class="item-desc">(Equipado)</span>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </section>
 
                 <section class="sheet-section" id="mochila-equip">
@@ -866,6 +864,31 @@
                                         <li>Inutiliza o alvo por 1 rodada, e ela não pode mais me atacar na batalha.</li>
                                     </ul>
                                 </li>
+                                <li>Lança do Eclipse <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Dano 8d6 + 5d10+ (físico/espiritual). Linha reta. Crítico dobra.</li>
+                                    </ul>
+                                </li>
+                                <li>Muralha da Penumbra <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Bloqueia magia (espiritual/todas) e projéteis. Reduz dano e -2 dados de dano.</li>
+                                    </ul>
+                                </li>
+                                <li>Sussuros da Escuridão <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Induz pânico, confusão, pesadelos. Dano 7d8 + 2d10.</li>
+                                    </ul>
+                                </li>
+                                <li>Medo Ancestral <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Invoca ancestral (convencer 2d20). Dano 2d8 (psico) + 15d10 (psico/físico).</li>
+                                    </ul>
+                                </li>
+                                <li>Nevoa Devoradora de Luz <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Dano contínuo (4d12) em todos inimigos por 7 turnos.</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
 
@@ -885,6 +908,11 @@
                                 <li>Utilizar Poderes <span class="mana-cost">(10+ Mana)</span>
                                     <ul class="sub-skill">
                                         <li>Usa poderes dos mortos controlados.</li>
+                                    </ul>
+                                </li>
+                                <li>Tifão de Vida <span class="mana-cost">(?? Mana)</span>
+                                    <ul class="sub-skill">
+                                        <li>Dano contínuo 12d12 por 3 rodadas. Crítico 2d8.</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -979,8 +1007,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
             <section class="sheet-section" id="character-art">
                 <h2>Arte do Personagem</h2>
@@ -1006,7 +1033,7 @@
                         cachoeira do meio = agua<br>
                         cachoeira da esquerda = gelo<br>
                         cachoeira da direita = morte súbita
-                    </a
+                    </p>
 
                 </div>
             </section>
@@ -1059,5 +1086,3 @@
 
 </body>
 </html>
-
-
