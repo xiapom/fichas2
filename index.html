@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Personagem - Dralok Cubewol</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS com Tema Medieval */
+
+        :root {
+            /* Paleta de Cores */
+            --bg-wood: #5d4037; /* Fundo de "mesa de madeira" */
+            --paper-light: #fdf5e6; /* Cor de pergaminho claro */
+            --paper-dark: #f7ead0;  /* Cor de pergaminho escuro */
+            --text-color: #4a3f35; /* Cor de tinta (marrom escuro) */
+            --text-muted: #795548;
+            --border-color: #a1887f; /* Borda de pedra/couro claro */
+            --header-bg: #8d6e63;   /* Fundo do título da seção (couro) */
+            --accent-red: #8c1d25;  /* Vermelho vinho (para destaques) */
+            --accent-gold: #b08d57; /* Ouro velho (para guilda) */
+            --hp-color: #8c1d25;
+            --mana-color: #1565c0;
+            --sanidade-color: #4a148c;
+            --defesa-color: #5d4037;
+
+            /* Fontes */
+            --font-title: 'MedievalSharp', cursive;
+            --font-header: 'Cinzel', serif;
+            --font-body: 'Merriweather', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-wood);
+            background-image: linear-gradient(315deg, #5d4037 0%, #4e342e 74%);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .sheet-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            background: var(--paper-light);
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 1px solid #4e342e;
+        }
+
+        /* --- CABEÇALHO --- */
+        .sheet-header {
+            text-align: center;
+            padding: 30px 20px 20px 20px;
+            background: var(--paper-dark);
+            border-bottom: 4px double var(--border-color);
+        }
+
+        .sheet-header h1 {
+            font-family: var(--font-title);
+            font-size: 3.8rem;
+            color: var(--accent-red);
+            font-weight: 400;
+        }
+
+        .sheet-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        /* --- CONTEÚDO PRINCIPAL (Grid) --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding: 25px;
+        }
+
+        /* --- Estilo de Seção Padrão --- */
+        .sheet-section {
+            background: var(--paper-dark);
+            border-radius: 4px;
+            border: 1px solid #d7ccc8;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sheet-section h2 {
+            font-family: var(--font-header);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--paper-light);
+            background: var(--header-bg);
+            padding: 12px 20px;
+            margin: 0;
+            text-shadow: 1px 1px 2px #4a3f35;
+            border-bottom: 1px solid #5d4037;
+        }
+        
+        .section-content {
+            padding: 20px;
+        }
+        
+        /* --- COLUNA 1: ATRIBUTOS E STATUS --- */
+
+        /* Info Geral */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .info-item {
+            background: var(--paper-light);
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #d7ccc8;
+        }
+        .info-item .label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+        .info-item .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Atributos */
+        .atributos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--paper-light);
+            padding: 10px 12px;
+            border-radius: 3px;
+            border: 1px solid #d7ccc8;
+        }
+        .stat-item .stat-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .stat-item .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent-red);
+            padding: 2px 10px;
+            border-radius: 3px;
+            min-width: 50px;
+            text-align: center;
+        }
+        .stat-item .stat-value.low {
+            background: #757575;
+        }
+        .stat-item .stat-name .star {
+            color: var(--accent-gold);
+            font-size: 1rem;
+        }
+
+        /* --- BOTÃO E INPUTS --- */
+        .sheet-button {
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            background: var(--accent-red);
+            color: var(--paper-light);
+            border: 1px solid var(--accent-red);
+            border-radius: 3px;
+            padding: 4px 10px;
+            cursor: pointer;
+            float: right;
+            font-weight: 700;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .sheet-button:hover {
+            background: #6a151b;
+        }
+        .sheet-button.save {
+            background: #2e7d32;
+            border-color: #2e7d32;
+        }
+        .sheet-button.save:hover {
+            background: #1b5e20;
+        }
+
+        .stat-input {
+            display: none;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            width: 70px;
+            text-align: center;
+            padding: 5px;
+        }
+        .stat-input::-webkit-outer-spin-button,
+        .stat-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .atributos-grid.editing .stat-value {
+            display: none;
+        }
+        .atributos-grid.editing .stat-input {
+            display: block;
+        }
+
+        /* Status (Barras) */
+        .status-list .status-item {
+            margin-bottom: 15px;
+        }
+        .status-list .status-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        .bar-container {
+            width: 100%;
+            height: 18px;
+            background: #d7ccc8;
+            border-radius: 2px;
+            overflow: hidden;
+            border: 1px solid #bcaaa4;
+        }
+        .bar-fill {
+            height: 100%;
+            width: 100%;
+        }
+        .bar-fill.hp { background: var(--hp-color); }
+        .bar-fill.mana { background: var(--mana-color); }
+        .bar-fill.sanidade { background: var(--sanidade-color); }
+        .bar-fill.defesa { background: var(--defesa-color); }
+        
+        /* --- COLUNA 2: EQUIPAMENTOS E HABILIDADES --- */
+
+        /* Armas e Mochila */
+        .item-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .item-list li {
+            background: var(--paper-light);
+            padding: 12px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 45px;
+            border: 1px solid #d7ccc8;
+        }
+        .item-list li::before {
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            font-size: 1.3rem;
+        }
+        #armas-equip .item-list li::before { content: '⚔️'; }
+        #mochila-equip .item-list li.gear::before { content: '⛓️'; }
+        #mochila-equip .item-list li.medic::before { content: '🩹'; }
+        #mochila-equip .item-list li.manto::before { content: '🧥'; }
+        #mochila-equip .item-list li.potion::before { content: '🧪'; }
+
+        .item-list .item-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-left: 5px;
+            font-style: italic;
+        }
+
+        /* Habilidades */
+        #habilidades .skill-category {
+            margin-bottom: 20px;
+        }
+        #habilidades .skill-category h3 {
+            font-family: var(--font-header);
+            color: var(--accent-red);
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        #habilidades ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+        #habilidades li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+        #habilidades li::before {
+            content: '\u2736';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            color: var(--accent-red);
+            font-size: 1.3rem;
+        }
+        #habilidades li .mana-cost {
+            font-style: italic;
+            color: var(--mana-color);
+            font-weight: 700;
+        }
+        #habilidades .sub-skill {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        #habilidades .sub-skill li::before {
+            content: '»';
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            top: -4px;
+        }
+
+        /* Cérebro */
+        #cerebro .info-item .value {
+            color: var(--text-muted);
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        /* --- CARTÃO DA GUILDA --- */
+        #guild-card {
+            grid-column: 1 / -1;
+            background: var(--paper-dark);
+            border: 4px double var(--accent-gold);
+            box-shadow: 0 0 15px rgba(176, 141, 87, 0.3);
+        }
+        #guild-card h2 {
+            background: var(--accent-gold);
+            color: #4a3f35;
+            text-shadow: none;
+        }
+        #guild-card .guild-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        #guild-card .guild-rank {
+            text-align: center;
+            border-right: 2px dashed var(--accent-gold);
+            padding-right: 20px;
+        }
+        #guild-card .guild-rank .rank-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        #guild-card .guild-rank .rank-value {
+            font-family: var(--font-header);
+            font-size: 5rem;
+            color: var(--accent-red);
+            line-height: 1;
+        }
+        #guild-card .guild-rank .level-value {
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        #guild-card .guild-financas h3 {
+            font-family: var(--font-header);
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        #guild-card .total-reserva {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        #guild-card .moedas-grid {
+            display: flex;
+            gap: 15px;
+        }
+        .moeda-item {
+            background: var(--paper-light);
+            padding: 10px;
+            border-radius: 3px;
+            text-align: center;
+            flex-grow: 1;
+            border: 1px solid #d7ccc8;
+        }
+        .moeda-item .moeda-label {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .moeda-item .moeda-valor {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .moeda-item .moeda-label[data-coin="ouro"] { color: #b08d57; }
+        .moeda-item .moeda-label[data-coin="prata"] { color: #9e9e9e; }
+        .moeda-item .moeda-label[data-coin="ferro"] { color: #795548; }
+        .moeda-item .moeda-label[data-coin="bronze"] { color: #a1887f; }
+
+        /* --- NOVA SEÇÃO DA IMAGEM --- */
+        #character-art {
+            grid-column: 1 / -1; /* Ocupa as duas colunas */
+        }
+        
+        #character-art .section-content {
+            padding: 15px; /* Um padding razoável */
+        }
+
+        #character-art img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 3px;
+            border: 2px solid var(--border-color); /* Borda estilizada */
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        /* --- FIM DA NOVA SEÇÃO --- */
+
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .sheet-header h1 {
+                font-size: 2.8rem;
+            }
+            #guild-card .guild-content {
+                grid-template-columns: 1fr;
+            }
+            #guild-card .guild-rank {
+                border-right: none;
+                border-bottom: 2px dashed var(--accent-gold);
+                padding-right: 0;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .sheet-container { margin: 5px auto; }
+            .atributos-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            #guild-card .moedas-grid { flex-direction: column; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sheet-container">
+        <header class="sheet-header">
+            <h1>Dralok Cubewol</h1>
+            <div class="subtitle">『 Viajante | Mago Necromante 』</div>
+        </header>
+
+        <div class="main-content">
+            
+            <div class="col-left">
+                
+                <section class="sheet-section" id="info-geral">
+                    <h2>Informações</h2>
+                    <div class="section-content">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Idade</span>
+                                <span class="value">200</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Altura</span>
+                                <span class="value">1.45 M</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Peso</span>
+                                <span class="value">85 KG</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Classe</span>
+                                <span class="value">Mago (Necromante)</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Rank</span>
+                                <span class="value">C</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Nível</span>
+                                <span class="value">40</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sheet-section" id="atributos">
+                    <h2>Atributos <button id="edit-attrs-btn" class="sheet-button">Editar</button></h2>
+                    <div class="section-content">
+                        <div class="atributos-grid">
+                            
+                            <div class="stat-item">
+                                <span class="stat-name">Força</span>
+                                <span class="stat-value">280</span>
+                                <input type="number" class="stat-input" value="280">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Mente</span>
+                                <span class="stat-value">250</span>
+                                <input type="number" class="stat-input" value="250">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Fé</span>
+                                <span class="stat-value low">35</span>
+                                <input type="number" class="stat-input" value="35">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Vitalidade</span>
+                                <span class="stat-value">300</span>
+                                <input type="number" class="stat-input" value="300">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Lábia</span>
+                                <span class="stat-value">100</span>
+                                <input type="number" class="stat-input" value="100">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Resistência</span>
+                                <span class="stat-value">250</span>
+                                <input type="number" class="stat-input" value="250">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Conhecimento <span class="star">★</span></span>
+                                <span class="stat-value">250</span>
+                                <input type="number" class="stat-input" value="250">
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Agilidade</span>
+                                <span class="stat-value">100</span>
+                                <input type="number" class="stat-input" value="100">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sheet-section" id="status">
+                    <h2>Status</h2>
+                    <div class="section-content status-list">
+                        
+                        <div class="status-item">
+                            <div class="status-label"><span>Pontos de Vida</span> <span class="value">300 / 300</span></div>
+                            <div class="bar-container">
+                                <div class="bar-fill hp" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-label"><span>Mana</span> <span class="value">375 / 375</span></div>
+                            <div class="bar-container">
+                                <div class="bar-fill mana" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-label"><span>Sanidade</span> <span class="value">500 / 500</span></div>
+                            <div class="bar-container">
+                                <div class="bar-fill sanidade" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-label"><span>Defesa</span> <span class="value">250</span></div>
+                            <div class="bar-container">
+                                <div class="bar-fill defesa" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-label"><span>Pontos de Fé</span> <span class="value">35</span></div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 10%; background: #757575;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div> <div class="col-right">
+
+                <section class="sheet-section" id="armas-equip">
+                    <h2>Armas</h2>
+                    <div class="section-content">
+                        <ul class="item-list">
+                            <li>Foice com Laminas Dupla <span class="item-desc">(5d12 cada)</span></li>
+                            <li>Duas Adagas <span class="item-desc">(5d12+6)</span></li>
+                            <li>Cajado de Gelo <span class="item-desc">(5d12+6 dano/defesa)</span></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="sheet-section" id="mochila-equip">
+                    <h2>Mochila (Grande)</h2>
+                    <div class="section-content">
+                        <ul class="item-list">
+                            <li class="gear">2x Corrente de Metal (1.5m)</li>
+                            <li class="medic">1x Kit Médico</li>
+                            <li class="manto">1x Manto Preto</li>
+                            <li class="potion">1x Poção de Mana Simples</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="sheet-section" id="habilidades">
+                    <h2>Habilidades</h2>
+                    <div class="section-content">
+                        
+                        <div class="skill-category">
+                            <h3>Magia das Sombras (Nv. 10)</h3>
+                            <ul>
+                                <li>Silhueta das Sombras <span class="mana-cost">(6 Mana)</span>
+                                    <ul class="sub-skill"><li>Dano total por 3 turnos.</li></ul>
+                                </li>
+                                <li>Visão Noturna <span class="mana-cost">(3 Mana)</span>
+                                    <ul class="sub-skill"><li>Duração de 1 hora.</li></ul>
+                                </li>
+                                <li>Manipulação de Sombras <span class="mana-cost">(5-10 Mana)</span>
+                                    <ul class="sub-skill"><li>Possuir criaturas de porte médio.</li></ul>
+                                </li>
+                                <li>Armazenar Soldados <span class="mana-cost">(7 Mana)</span>
+                                    <ul class="sub-skill"><li>Armazena 3 soldados nas sombras (chamar/guardar).</li></ul>
+                                </li>
+                                <li>Olhar do Abismo <span class="mana-cost">(8 Mana)</span>
+                                    <ul class="sub-skill"><li>Inutiliza alvo por 1 rodada (não pode mais te atacar).</li></ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Magia de Necromancia (Nv. 5)</h3>
+                            <ul>
+                                <li>Controlar Cadáveres <span class="mana-cost">(7+ Mana)</span>
+                                    <ul class="sub-skill"><li>Controle total se rank >= alvo.</li></ul>
+                                </li>
+                                <li>Aplicar Maldição <span class="mana-cost">(12 Mana)</span>
+                                    <ul class="sub-skill"><li>Desvantagem em visão, físico ou psicológica.</li></ul>
+                                </li>
+                                <li>Utilizar Poderes <span class="mana-cost">(10+ Mana)</span>
+                                    <ul class="sub-skill"><li>Usa poderes dos mortos controlados.</li></ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Magia do Outro lado (Nv. 1)</h3>
+                            <ul>
+                                <li>Você se sente estranho...</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+                
+                <section class="sheet-section" id="cerebro">
+                    <h2>Cérebro</h2>
+                    <div class="section-content">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Línguas Faladas</span>
+                                <span class="value">Português</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Sonho/Ambição</span>
+                                <span class="value">...?</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Objetivo Atual</span>
+                                <span class="value">...?</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Maior Medo</span>
+                                <span class="value">...?</span>
+                            }
+                        </div>
+                    </div>
+                </section>
+                
+            </div> <section class="sheet-section" id="guild-card">
+                <h2>Cartão da Guilda dos Aventureiros</h2>
+                <div class="guild-content">
+                    <div class="guild-rank">
+                        <div class="rank-label">Rank de Aventureiro</div>
+                        <div class="rank-value">C</div>
+                        <div class="level-value">Nível 40 | EXP 0</div>
+                    </div>
+                    <div class="guild-financas">
+                        <h3>Finanças</h3>
+                        <div class="total-reserva">$ 600</div>
+                        <div class="moedas-grid">
+                            <div class="moeda-item">
+                                <span class="moeda-label" data-coin="ouro">Ouro</span>
+                                <span class="moeda-valor">2</span>
+                            </div>
+                            <div class="moeda-item">
+                                <span class="moeda-label" data-coin="prata">Prata</span>
+                                <span class="moeda-valor">10</span>
+                            </div>
+                            <div class="moeda-item">
+                                <span class="moeda-label" data-coin="ferro">Ferro</span>
+                                <span class="moeda-valor">5</span>
+                            </div>
+                            <div class="moeda-item">
+                                <span class="moeda-label" data-coin="bronze">Bronze</span>
+                                <span class="moeda-valor">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sheet-section" id="character-art">
+                <h2>Arte do Personagem</h2>
+                <div class="section-content">
+                    <img src="png.png" alt="Arte de Dralok Cubewol">
+                </div>
+            </section>
+            </div> </div> <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const editButton = document.getElementById('edit-attrs-btn');
+            const attrsGrid = document.getElementById('atributos').querySelector('.atributos-grid');
+            
+            editButton.addEventListener('click', function() {
+                
+                const isEditing = attrsGrid.classList.contains('editing');
+                const statItems = attrsGrid.querySelectorAll('.stat-item');
+
+                if (isEditing) {
+                    // --- MODO: SALVANDO ---
+                    statItems.forEach(item => {
+                        const input = item.querySelector('.stat-input');
+                        const span = item.querySelector('.stat-value');
+                        
+                        span.textContent = input.value;
+                        
+                        if (item.querySelector('.stat-name').textContent.includes('Fé')) {
+                            if (parseInt(input.value) < 50) {
+                                span.classList.add('low');
+                            } else {
+                                span.classList.remove('low');
+                            }
+                        }
+                    });
+
+                    attrsGrid.classList.remove('editing');
+                    editButton.textContent = 'Editar';
+                    editButton.classList.remove('save');
+
+                } else {
+                    // --- MODO: EDITANDO ---
+                    statItems.forEach(item => {
+                        const input = item.querySelector('.stat-input');
+                        const span = item.querySelector('.stat-value');
+                        
+                        input.value = span.textContent.trim();
+                    });
+
+                    attrsGrid.classList.add('editing');
+                    editButton.textContent = 'Salvar';
+                    editButton.classList.add('save');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
