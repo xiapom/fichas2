@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Nova Ficha - RPG</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #222425;
+            --box-color: #30353a;
+            --input-bg: #3a3f44;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-color: #5b636a;
+            --accent-green: #2e7d32;
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Merriweather', serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: var(--box-color);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            padding: 20px;
+            background-color: #4b5157;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .form-header h1 {
+            font-family: var(--font-title);
+            color: var(--text-color);
+            text-align: center;
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px #000;
+        }
+        
+        form {
+            padding: 25px;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 25px;
+        }
+        .form-section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .form-section h2 {
+            font-family: var(--font-title);
+            color: var(--accent-green);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .form-grid.grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 10px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.4);
+        }
+        
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            background-color: var(--accent-green);
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-family: var(--font-title);
+            font-weight: 700;
+            border-radius: 4px;
+            border: 1px solid var(--accent-green);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .submit-button:hover {
+            background-color: #1b5e20;
+            border-color: #fff;
+        }
+        
+        @media (max-width: 700px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 500px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <header class="form-header">
+            <h1>Criar Nova Ficha de Personagem</h1>
+        </header>
+        
+        <form id="create-sheet-form">
+            
+            <div class="form-section">
+                <h2>Informações Principais</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="nome">Nome do Personagem</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idade">Idade</label>
+                        <input type="number" id="idade" name="idade">
+                    </div>
+                    <div class="form-group">
+                        <label for="altura">Altura (ex: 1.80m)</label>
+                        <input type="text" id="altura" name="altura">
+                    </div>
+                    <div class="form-group">
+                        <label for="peso">Peso (ex: 80kg)</label>
+                        <input type="text" id="peso" name="peso">
+                    </div>
+                    <div class="form-group">
+                        <label for="classe">Classe</label>
+                        <input type="text" id="classe" name="classe">
+                    </div>
+                    <div class="form-group">
+                        <label for="subclasse">Subclasse</label>
+                        <input type="text" id="subclasse" name="subclasse">
+                    </div>
+                    <div class="form-group">
+                        <label for="rank">Rank</label>
+                        <input type="text" id="rank" name="rank" value="C">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Atributos</h2>
+                <div class="form-grid grid-2">
+                    <div class="form-group">
+                        <label for="forca">Força</label>
+                        <input type="number" id="forca" name="forca" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="mente">Mente</label>
+                        <input type="number" id="mente" name="mente" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="fe">Fé</label>
+                        <input type="number" id="fe" name="fe" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="vitalidade">Vitalidade</label>
+                        <input type="number" id="vitalidade" name="vitalidade" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="labia">Lábia</label>
+                        <input type="number" id="labia" name="labia" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="resistencia">Resistência</label>
+                        <input type="number" id="resistencia" name="resistencia" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="conhecimento">Conhecimento</label>
+                        <input type="number" id="conhecimento" name="conhecimento" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="agilidade">Agilidade</label>
+                        <input type="number" id="agilidade" name="agilidade" value="0">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Status Iniciais</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vida">Pontos de Vida</label>
+                        <input type="number" id="vida" name="vida" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="mana">Mana</label>
+                        <input type="number" id="mana" name="mana" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="sanidade">Sanidade</label>
+                        <input type="number" id="sanidade" name="sanidade" value="100">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Itens Iniciais</h2>
+                <div class="form-grid grid-2">
+                    <div class="form-group">
+                        <label for="armas">Armas</label>
+                        <textarea id="armas" name="armas" placeholder="Ex: 1x Adaga (1d4)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="mochila">Mochila</label>
+                        <textarea id="mochila" name="mochila" placeholder="Ex: 1x Poção de Cura Simples&#10;1x Corda (10m)"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Salvar Personagem</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
